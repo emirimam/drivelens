@@ -1,0 +1,130 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Sora', 'Plus Jakarta Sans', ui-sans-serif, sans-serif;
+}
+
+:root {
+  --bg: #f4f2ee;
+  --bg2: #ebe8e1;
+  --card: #ffffff;
+  --card2: #f8f7f4;
+  --line: #e4e1da;
+  --t1: #111114;
+  --t2: #55545c;
+  --t3: #8b8a92;
+  --gold: #a87a3d;
+  --gold2: #d4ad6b;
+  --el: #0a84c7;
+  --el2: #38bdf8;
+  --fuel: #e2611f;
+  --fuel2: #fb923c;
+  --save: #0f9d58;
+  --dist: #6046d8;
+  --warn: #c48a00;
+  --bad: #d23c3c;
+  --hero-a: #15131b;
+  --hero-b: #2b2433;
+  color-scheme: light;
+}
+.dark {
+  --bg: #0b0b10;
+  --bg2: #121219;
+  --card: #15151d;
+  --card2: #1b1b25;
+  --line: #262633;
+  --t1: #f4f3f8;
+  --t2: #b4b3c0;
+  --t3: #7d7c8a;
+  --gold: #d6b07a;
+  --gold2: #f0d3a2;
+  --el: #38bdf8;
+  --el2: #7dd3fc;
+  --fuel: #fb8a4c;
+  --fuel2: #fdba74;
+  --save: #34d399;
+  --dist: #a28bff;
+  --warn: #fbbf24;
+  --bad: #f87171;
+  --hero-a: #0b0b10;
+  --hero-b: #1d1828;
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--t1);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  min-height: 100dvh;
+}
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 999px;
+}
+.grain {
+  background:
+    radial-gradient(1200px 500px at 10% -10%, color-mix(in oklab, var(--gold) 28%, transparent), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, color-mix(in oklab, var(--el) 22%, transparent), transparent 60%),
+    linear-gradient(160deg, var(--hero-a), var(--hero-b));
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.leaflet-container {
+  background: var(--bg2);
+  font-family: var(--font-sans);
+  border-radius: 16px;
+}
+.dark .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9) saturate(0.6);
+}
+.fade-in {
+  animation: fade 0.5s ease both;
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    animation: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+  .card {
+    break-inside: avoid;
+  }
+}
