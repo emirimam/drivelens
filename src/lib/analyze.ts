@@ -13,6 +13,10 @@ export interface Settings {
   electricityPrice: number
   kwhPer100: number
   excludedMonths: string[]
+  /** Country whose fuel price history is used ('custom' = user-entered prices). */
+  market: string
+  /** Report period as inclusive month keys (YYYY-MM); null = open end. */
+  period: { from: string | null; to: string | null }
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -23,6 +27,8 @@ export const DEFAULT_SETTINGS: Settings = {
   electricityPrice: 0.27,
   kwhPer100: 23,
   excludedMonths: [],
+  market: 'BA',
+  period: { from: null, to: null },
 }
 
 /** Average retail price of 95-octane petrol in the Federation of BiH (FMT reports / press). */

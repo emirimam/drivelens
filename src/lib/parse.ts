@@ -131,9 +131,25 @@ const MI = 1.609344
 const UK_GALLON = 4.54609
 const MIN_VALID_YEAR = 2012
 
+interface RawTrip {
+  i: number
+  date: Date | null
+  startMin: number | null
+  duration: number
+  km: number
+  odo: number | null
+  from: LatLon | null
+  to: LatLon | null
+  /** consumption in the file's unit (null = blank) */
+  cons: number | null
+  fixed: boolean
+}
+
+/** Entry point: accepts the CSV export or the app's JSON / .myp backup export. */
 export function parseTripsCsv(text: string): ParseResult {
+  const clean = text.replace(/^\uFEFF/, '').trim()
+  if (clean.startsWith('{') || clean.startsWith('[')) return parseTripsJson(clean)
   const warnings: string[] = []
-  const clean = text.replace(/^\uFEFF/, '')
   const parsed = Papa.parse<string[]>(clean, { skipEmptyLines: 'greedy', delimiter: '' })
   const rows = parsed.data.filter((r) => r.some((c) => String(c).trim() !== ''))
   if (rows.length < 2) throw new Error('empty')
@@ -170,6 +186,40 @@ export function parseTripsCsv(text: string): ParseResult {
     })
     .filter((r) => r.date && r.km >= 0)
 
+  return finalize(raw, consumptionUnit, distanceUnit, warnings)
+}
+
+interface JsonPoint { date?: string; mileage?: number; latitude?: number; longitude?: number }
+interface JsonTrip { start?: JsonPoint; end?: JsonPoint; distance?: number; travelTime?: number; fuelConsumption?: number }
+
+/**
+ * JSON / .myp export (MyPeugeot, MyCitroën, MyDS, MyOpel backup format):
+ * one or more vehicles `{ vin, trips: [...] }`. fuelConsumption is in millionths of a litre.
+ */
+export function parseTripsJson(text: string): ParseResult {
+  const data: unknown = JSON.parse(text)
+  const vehicles = (Array.isArray(data) ? data : [data]) as { trips?: JsonTrip[] }[]
+  const trips = vehicles.flatMap((v) => (Array.isArray(v?.trips) ? v.trips : []))
+  const pos = (p?: JsonPoint): LatLon | null =>
+    p && typeof p.latitude === 'number' && typeof p.longitude === 'number' && p.latitude !== -1 && !(p.latitude === 0 && p.longitude === 0) ? { lat: p.latitude, lon: p.longitude } : null
+  const raw: RawTrip[] = trips.map((t, i) => {
+    const date = t.start?.date ? new Date(t.start.date) : null
+    const km = typeof t.distance === 'number' && t.distance >= 0 ? t.distance : 0
+    const litres = typeof t.fuelConsumption === 'number' && t.fuelConsumption > 0 ? t.fuelConsumption / 1e6 : 0
+    return {
+      i, date: date && !isNaN(date.getTime()) ? date : null,
+      startMin: date ? date.getHours() * 60 + date.getMinutes() : null,
+      duration: typeof t.travelTime === 'number' && t.travelTime > 0 ? Math.round(t.travelTime / 60) : 0,
+      km, odo: typeof t.end?.mileage === 'number' && t.end.mileage > 0 ? t.end.mileage : null,
+      from: pos(t.start), to: pos(t.end),
+      cons: litres > 0 && km > 0 ? km / litres : null,
+      fixed: false,
+    }
+  }).filter((r) => r.date)
+  return finalize(raw, 'km/l', 'km', [])
+}
+
+function finalize(raw: RawTrip[], consumptionUnit: ConsumptionUnit, distanceUnit: DistanceUnit, warnings: string[]): ParseResult {
   if (!raw.length) throw new Error('no-trips')
 
   // infer consumption unit from values when the header does not say it
