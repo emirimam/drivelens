@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react'
-import type { Key } from '../lib/i18n'
+import type { Key, Lang } from '../lib/i18n'
+import faq from '../../content/faq.json'
 import { Icon } from './ui'
 
 interface Props {
+  lang: Lang
   t: (k: Key, v?: Record<string, string | number>) => string
   onFile: (text: string, name: string) => void
   onDemo: () => void
@@ -10,7 +12,18 @@ interface Props {
   topBar: React.ReactNode
 }
 
-export function Landing({ t, onFile, onDemo, error, topBar }: Props) {
+const GUIDES = [
+  { href: '/vodic/izvoz-voznji-myds/', title: 'Kako izvesti vožnje iz MyDS aplikacije', guide: true },
+  { href: '/vodic/izvoz-voznji-mycitroen/', title: 'Kako izvesti vožnje iz MyCitroën aplikacije', guide: true },
+  { href: '/vodic/izvoz-voznji-mypeugeot/', title: 'Kako izvesti vožnje iz MyPeugeot aplikacije', guide: true },
+  { href: '/vodic/izvoz-voznji-myopel/', title: 'Kako izvesti vožnje iz MyOpel aplikacije', guide: true },
+  { href: '/clanci/stvarna-potrosnja-phev-struja-vs-gorivo/', title: 'Stvarna potrošnja PHEV vozila: struja vs. gorivo', guide: false },
+  { href: '/clanci/peugeot-3008-hybrid-stvarna-potrosnja/', title: 'Koliko stvarno troši Peugeot 3008 Hybrid?', guide: false },
+  { href: '/clanci/da-li-se-isplati-puniti-opel-grandland-hybrid-svaki-dan/', title: 'Da li se isplati puniti Opel Grandland Hybrid svaki dan?', guide: false },
+  { href: '/clanci/e-save-punjenje-baterije-motorom/', title: 'Punjenje baterije motorom (e-Save): ima li smisla?', guide: false },
+]
+
+export function Landing({ t, lang, onFile, onDemo, error, topBar }: Props) {
   const input = useRef<HTMLInputElement>(null)
   const [drag, setDrag] = useState(false)
 
@@ -67,7 +80,7 @@ export function Landing({ t, onFile, onDemo, error, topBar }: Props) {
                 <span className="block font-display text-xl font-bold">{t('drop')}</span>
                 <span className="block text-white/60 mt-1 text-sm">{t('dropOr')}</span>
               </button>
-              <input ref={input} type="file" accept=".csv,text/csv,text/plain" className="hidden" onChange={(e) => read(e.target.files?.[0])} />
+              <input ref={input} type="file" accept=".csv,.json,.myp,text/csv,text/plain,application/json" className="hidden" onChange={(e) => read(e.target.files?.[0])} />
               {error && <p role="alert" className="mt-3 text-sm rounded-xl px-4 py-3" style={{ background: 'rgba(248,113,113,.15)', color: '#fecaca' }}>{error}</p>}
               <button type="button" onClick={onDemo} className="mt-4 w-full rounded-2xl py-3.5 font-semibold transition hover:brightness-110" style={{ background: 'rgba(255,255,255,.1)', border: '1px solid rgba(255,255,255,.18)' }}>
                 {t('demo')} →
@@ -101,7 +114,40 @@ export function Landing({ t, onFile, onDemo, error, topBar }: Props) {
             ))}
           </ol>
         </div>
-        <p className="text-xs text-center mt-8" style={{ color: 'var(--t3)' }}>{t('disclaimer')}</p>
+        <p className="text-sm mt-4 text-center" style={{ color: 'var(--t3)' }}>{t('dataFormats')}</p>
+
+        <section className="mt-12" aria-labelledby="guides-h">
+          <h2 id="guides-h" className="font-display text-2xl font-bold mb-1">{t('guidesTitle')}</h2>
+          {t('guidesNote') && <p className="text-sm mb-3" style={{ color: 'var(--t3)' }}>{t('guidesNote')}</p>}
+          <div className="grid sm:grid-cols-2 gap-3 mt-3">
+            {GUIDES.map((g) => (
+              <a key={g.href} href={g.href} className="card p-4 block transition hover:brightness-110" style={{ textDecoration: 'none', color: 'var(--t1)' }}>
+                <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: g.guide ? 'var(--gold)' : 'var(--el)' }}>{g.guide ? 'CSV' : 'PHEV'}</span>
+                <span className="block font-semibold mt-0.5">{g.title}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-12" aria-labelledby="faq-h">
+          <h2 id="faq-h" className="font-display text-2xl font-bold mb-3">{t('faqTitle')}</h2>
+          <div className="space-y-2">
+            {(faq as Record<string, { q: string; a: string; link?: string }[]>)[lang].map((f) => (
+              <details key={f.q} className="card px-4 py-3 group">
+                <summary className="cursor-pointer font-semibold list-none flex justify-between gap-3">
+                  {f.q}
+                  <span className="transition group-open:rotate-45" style={{ color: 'var(--gold)' }}>+</span>
+                </summary>
+                <p className="mt-2 text-[15px]" style={{ color: 'var(--t2)' }}>
+                  {f.a} {f.link && <a href={f.link} style={{ color: 'var(--el)' }}>→</a>}
+                </p>
+              </details>
+            ))}
+          </div>
+          {lang === 'bs' && <p className="mt-3 text-sm"><a href="/pitanja/" style={{ color: 'var(--el)' }}>Sva pitanja →</a></p>}
+        </section>
+
+        <p className="text-xs text-center mt-10" style={{ color: 'var(--t3)' }}>{t('disclaimer')}</p>
       </main>
     </div>
   )

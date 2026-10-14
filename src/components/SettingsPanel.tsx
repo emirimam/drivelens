@@ -1,4 +1,5 @@
-import { PRESET_BIH_PETROL, type Settings } from '../lib/analyze'
+import type { Settings } from '../lib/analyze'
+import { withMarket } from '../lib/markets'
 import type { Key } from '../lib/i18n'
 import { Icon } from './ui'
 
@@ -26,7 +27,8 @@ function Num({ label, value, onChange, step = 0.01 }: { label: string; value: nu
 }
 
 export function SettingsPanel({ s, set, months, monthLabel, t, onClose, remember, setRemember }: Props) {
-  const upd = (p: Partial<Settings>) => set({ ...s, ...p })
+  const upd = (p: Partial<Settings>) => set(withMarket(s, p))
+  const own = (p: Partial<Settings>) => set(withMarket(s, { ...p, market: 'custom' }))
   return (
     <div className="fixed inset-0 z-[1000] no-print" role="dialog" aria-modal="true" aria-label={t('settings')}>
       <button type="button" aria-label={t('close')} className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
@@ -48,7 +50,7 @@ export function SettingsPanel({ s, set, months, monthLabel, t, onClose, remember
               <option value="diesel">{t('diesel')}</option>
             </select>
           </label>
-          <Num label={t('fuelPrice')} value={s.fuelPrice} onChange={(v) => upd({ fuelPrice: v })} />
+          <Num label={t('fuelPrice')} value={s.fuelPrice} onChange={(v) => own({ fuelPrice: v })} />
           <Num label={t('elPrice')} value={s.electricityPrice} onChange={(v) => upd({ electricityPrice: v })} />
           <Num label={t('kwh100')} value={s.kwhPer100} step={0.5} onChange={(v) => upd({ kwhPer100: v })} />
         </div>
@@ -56,21 +58,19 @@ export function SettingsPanel({ s, set, months, monthLabel, t, onClose, remember
         <div className="card p-4 mt-5">
           <div className="flex items-center justify-between gap-2 mb-2">
             <h3 className="font-semibold">{t('priceHistory')}</h3>
-            {s.pricePoints.length > 0 && <button type="button" className="text-sm" style={{ color: 'var(--bad)' }} onClick={() => upd({ pricePoints: [] })}>{t('clear')}</button>}
+            {s.pricePoints.length > 0 && <button type="button" className="text-sm" style={{ color: 'var(--bad)' }} onClick={() => own({ pricePoints: [] })}>{t('clear')}</button>}
           </div>
-          <button type="button" className="w-full rounded-xl py-2.5 font-semibold text-sm mb-3" style={{ background: 'color-mix(in oklab, var(--fuel) 14%, var(--card))', color: 'var(--fuel)' }} onClick={() => upd({ pricePoints: PRESET_BIH_PETROL, currency: 'KM', fuelType: 'petrol' })}>
-            {t('presetBih')}
-          </button>
+          <p className="text-xs mb-3" style={{ color: 'var(--t3)' }}>{s.market === 'custom' ? t('rcSourceCustom') : t('pricesFromMarket')}</p>
           <div className="space-y-2">
             {s.pricePoints.map((p, i) => (
               <div key={i} className="grid grid-cols-[1fr_96px_36px] gap-2">
-                <input type="date" value={p.date} onChange={(e) => upd({ pricePoints: s.pricePoints.map((x, j) => (j === i ? { ...x, date: e.target.value } : x)) })} className={inputCls} style={inputStyle} />
-                <input type="number" step={0.01} value={p.price} onChange={(e) => upd({ pricePoints: s.pricePoints.map((x, j) => (j === i ? { ...x, price: Number(e.target.value) } : x)) })} className={inputCls} style={inputStyle} />
-                <button type="button" aria-label="x" className="rounded-xl grid place-items-center" style={{ color: 'var(--t3)' }} onClick={() => upd({ pricePoints: s.pricePoints.filter((_, j) => j !== i) })}><Icon name="x" size={16} /></button>
+                <input type="date" value={p.date} onChange={(e) => own({ pricePoints: s.pricePoints.map((x, j) => (j === i ? { ...x, date: e.target.value } : x)) })} className={inputCls} style={inputStyle} />
+                <input type="number" step={0.01} value={p.price} onChange={(e) => own({ pricePoints: s.pricePoints.map((x, j) => (j === i ? { ...x, price: Number(e.target.value) } : x)) })} className={inputCls} style={inputStyle} />
+                <button type="button" aria-label="x" className="rounded-xl grid place-items-center" style={{ color: 'var(--t3)' }} onClick={() => own({ pricePoints: s.pricePoints.filter((_, j) => j !== i) })}><Icon name="x" size={16} /></button>
               </div>
             ))}
           </div>
-          <button type="button" className="mt-3 text-sm font-semibold" style={{ color: 'var(--gold)' }} onClick={() => upd({ pricePoints: [...s.pricePoints, { date: new Date().toISOString().slice(0, 10), price: s.fuelPrice }] })}>
+          <button type="button" className="mt-3 text-sm font-semibold" style={{ color: 'var(--gold)' }} onClick={() => own({ pricePoints: [...s.pricePoints, { date: new Date().toISOString().slice(0, 10), price: s.fuelPrice }] })}>
             + {t('addPoint')}
           </button>
         </div>
