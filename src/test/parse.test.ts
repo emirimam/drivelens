@@ -53,3 +53,13 @@ test('price interpolation', () => {
   expect(priceAt(s, new Date('2026-01-06T12:00:00'))).toBeCloseTo(2.5, 2)
   expect(priceAt(s, new Date('2025-01-01'))).toBe(2)
 })
+
+test('JSON / .myp export', () => {
+  const trip = (d: string, km: number, fuel: number, odo: number) => ({ start: { date: d, mileage: odo - km, latitude: 44.5, longitude: 18.5 }, end: { date: d, mileage: odo, latitude: 44.6, longitude: 18.6 }, distance: km, travelTime: km * 90, fuelConsumption: fuel })
+  const json = JSON.stringify({ vin: 'VF3TEST', trips: [trip('2026-01-02T08:00:00Z', 20, 0, 1020), trip('2026-01-03T08:00:00Z', 150, 10_000_000, 1170), trip('2026-01-04T08:00:00Z', 15, 0, 1185), trip('2026-01-05T08:00:00Z', 12, 0, 1197), trip('2026-01-06T08:00:00Z', 30, 0, 1227)] })
+  const p = parseTripsCsv(json)
+  expect(p.trips).toHaveLength(5)
+  expect(p.powertrain).toBe('phev')
+  expect(p.trips[1].litres).toBeCloseTo(10, 5)
+  expect(p.trips[0].electricOnly).toBe(true)
+})
