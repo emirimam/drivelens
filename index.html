@@ -2,20 +2,76 @@
 <html lang="bs" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>DriveLens – izvještaj o vožnji i potrošnji iz MyDS, MyCitroën, MyPeugeot i MyOpel</title>
+    <meta name="description" content="Besplatan izvještaj o vožnji iz CSV izvoza MyDS, MyCitroën, MyPeugeot i MyOpel aplikacije: koliko voziš na struju, stvarna potrošnja plug-in hibrida, troškovi, ušteda, mapa i rekordi. Podaci ostaju na tvom uređaju." />
+    <link rel="canonical" href="https://drivelens-one.vercel.app/" />
+    <link rel="alternate" hreflang="bs" href="https://drivelens-one.vercel.app/?lang=bs" />
+    <link rel="alternate" hreflang="en" href="https://drivelens-one.vercel.app/?lang=en" />
+    <link rel="alternate" hreflang="de" href="https://drivelens-one.vercel.app/?lang=de" />
+    <link rel="alternate" hreflang="fr" href="https://drivelens-one.vercel.app/?lang=fr" />
+    <link rel="alternate" hreflang="x-default" href="https://drivelens-one.vercel.app/" />
     <meta name="theme-color" content="#0b0b10" />
-    <title>DriveLens · izvještaj o vožnji za DS, Citroën, Peugeot i Opel</title>
-    <meta name="description" content="Učitaj CSV putovanja iz MyDS, MyCitroën, MyPeugeot ili MyOpel aplikacije i dobij lijep izvještaj: struja vs. gorivo, troškovi, uštede, navike i rekordi. Podaci ostaju na tvom uređaju." />
-    <meta property="og:title" content="DriveLens" />
-    <meta property="og:description" content="Lijep izvještaj o vožnji iz MyDS / MyCitroën / MyPeugeot / MyOpel podataka." />
+    <meta name="google-site-verification" content="rxATFzPkrhgsxQD6HBPlZ82laDueMDwt2T0iv7wdc1c" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="DriveLens" />
+    <meta property="og:title" content="DriveLens – izvještaj o vožnji za DS, Citroën, Peugeot i Opel" />
+    <meta property="og:description" content="Učitaj CSV putovanja iz MyDS, MyCitroën, MyPeugeot ili MyOpel aplikacije i vidi koliko voziš na struju, koliko troši motor i koliko si uštedio." />
+    <meta property="og:url" content="https://drivelens-one.vercel.app/" />
+    <meta property="og:image" content="https://drivelens-one.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="bs_BA" />
+    <meta property="og:locale:alternate" content="en_GB" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "DriveLens",
+        "url": "https://drivelens-one.vercel.app/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "inLanguage": ["bs", "en", "de", "fr"],
+        "description": "Izvještaj o vožnji iz CSV izvoza aplikacija MyDS, MyCitroën, MyPeugeot i MyOpel: struja vs. gorivo, stvarna potrošnja, troškovi, ušteda, navike, mapa i rekordi.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+        "featureList": ["Udio vožnje na struju za plug-in hibride", "Troškovi goriva po datumu", "Procjena uštede", "Ispravka resetovanog sata u autu", "Pronalaženje rupa u logu", "Mapa najčešćih odredišta"]
+      }
+    </script>
+    <!-- Cookieless analytics (Vercel Web Analytics). No cookies, no personal data, no trip data. -->
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments) }</script>
+    <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Static content for crawlers and users without JavaScript; React replaces it on load. -->
+      <main style="max-width:820px;margin:0 auto;padding:40px 18px;font-family:system-ui,sans-serif;color:#f4f3f8;background:#0b0b10">
+        <h1>DriveLens – izvještaj o vožnji za DS, Citroën, Peugeot i Opel</h1>
+        <p>Učitaj CSV s putovanjima iz aplikacije MyDS, MyCitroën, MyPeugeot ili MyOpel i dobij detaljan izvještaj: koliko voziš na struju, stvarna potrošnja kad motor radi, troškovi goriva i struje, ušteda, navike, najčešća odredišta i rekordi. Sve se računa u pregledniku i podaci ne napuštaju tvoj uređaj.</p>
+        <h2>Vodiči za izvoz podataka</h2>
+        <ul>
+          <li><a href="/vodic/izvoz-voznji-myds/">Kako izvesti vožnje iz MyDS aplikacije</a></li>
+          <li><a href="/vodic/izvoz-voznji-mycitroen/">Kako izvesti vožnje iz MyCitroën aplikacije</a></li>
+          <li><a href="/vodic/izvoz-voznji-mypeugeot/">Kako izvesti vožnje iz MyPeugeot aplikacije</a></li>
+          <li><a href="/vodic/izvoz-voznji-myopel/">Kako izvesti vožnje iz MyOpel aplikacije</a></li>
+        </ul>
+        <h2>Članci</h2>
+        <ul>
+          <li><a href="/clanci/stvarna-potrosnja-phev-struja-vs-gorivo/">Stvarna potrošnja PHEV vozila: struja vs. gorivo</a></li>
+          <li><a href="/clanci/peugeot-3008-hybrid-stvarna-potrosnja/">Koliko stvarno troši Peugeot 3008 Hybrid na struju i benzin?</a></li>
+          <li><a href="/clanci/da-li-se-isplati-puniti-opel-grandland-hybrid-svaki-dan/">Da li se isplati puniti Opel Grandland Hybrid svaki dan?</a></li>
+          <li><a href="/clanci/e-save-punjenje-baterije-motorom/">Punjenje baterije motorom (e-Save): da li ima smisla?</a></li>
+        </ul>
+        <p><a href="/pitanja/">Česta pitanja</a></p>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

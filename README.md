@@ -3,7 +3,7 @@
 Lijep, detaljan izvještaj o vožnji iz CSV izvoza aplikacija **MyDS, MyCitroën, MyPeugeot i MyOpel**.
 *A beautiful driving report from the trips CSV exported by the MyDS, MyCitroën, MyPeugeot and MyOpel apps.*
 
-**Live:** https://drivelens.vercel.app
+**Live:** https://drivelens-one.vercel.app
 
 ## Šta radi
 
