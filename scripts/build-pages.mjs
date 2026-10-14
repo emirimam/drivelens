@@ -35,7 +35,8 @@ h2{font:700 24px/1.3 'Sora',sans-serif;margin:38px 0 10px}h3{font:700 19px/1.35 
 table{border-collapse:collapse;width:100%;font-size:15px;margin:10px 0;font-variant-numeric:tabular-nums}th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left}th{color:var(--t2);font-weight:600}
 .tw{overflow-x:auto}.steps{list-style:none;padding:0;margin:24px 0;display:grid;gap:22px}
 .step{display:grid;grid-template-columns:1fr 210px;gap:20px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
-@media(max-width:620px){.step{grid-template-columns:1fr}.step svg{max-width:210px;margin:0 auto}}
+@media(max-width:620px){.step{grid-template-columns:1fr}.step svg,.step .shot{max-width:230px;margin:0 auto}}
+.shot{display:block;width:100%;height:auto;border-radius:22px;border:1px solid var(--line);box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .num{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#15131b;font:800 15px 'Sora',sans-serif;margin-right:8px}
 .step p{margin:6px 0 0;color:var(--t2)}.cap{font-size:12px;color:var(--t3);text-align:center;margin-top:4px}
 .cta{margin:36px 0;padding:22px;border-radius:20px;background:linear-gradient(135deg,color-mix(in oklab,var(--gold) 22%,var(--card)),var(--card));border:1px solid color-mix(in oklab,var(--gold) 40%,var(--line))}
@@ -95,10 +96,10 @@ for (const p of PAGES) {
   if (p.kind === 'guide') {
     body += `<p class="lead">${esc(p.description)}</p><p>Vodič vrijedi za ${esc(p.app.models)}. Nazivi menija mogu se malo razlikovati zavisno od verzije aplikacije i jezika telefona.</p>`
     if (p.extra) body += `<p class="note">${esc(p.extra)}</p>`
-    body += `<ol class="steps">${p.steps.map((s, i) => `<li class="step"><div><h3><span class="num">${i + 1}</span>${esc(s.t)}</h3><p>${esc(s.d)}</p></div><figure style="margin:0">${phone(s.screen, s.hl, i + 1, s.t)}<figcaption class="cap">Ilustracija ekrana</figcaption></figure></li>`).join('')}</ol>`
+    body += `<ol class="steps">${p.steps.map((s, i) => `<li class="step"><div><h3><span class="num">${i + 1}</span>${esc(s.t)}</h3><p>${esc(s.d)}</p></div><figure style="margin:0">${s.img ? `<img class="shot" src="${s.img}" alt="${esc(s.alt || s.t)}" width="540" height="1171" loading="${i < 2 ? 'eager' : 'lazy'}" decoding="async"><figcaption class="cap">Snimak ekrana (iPhone)</figcaption>` : `${phone(s.screen, s.hl, i + 1, s.t)}<figcaption class="cap">Ilustracija ekrana</figcaption>`}</figure></li>`).join('')}</ol>`
     body += `<h2>Česti problemi</h2><ul><li><b>Izvoz je prazan ili ima samo par vožnji.</b> Provjeri izabrani period i da su povezane usluge aktivne. Vožnje koje auto nije poslao (bez mreže, u inostranstvu) ne mogu se izvesti.</li><li><b>Datumi iz 2007. godine.</b> Sat u autu je resetovan. DriveLens takve vožnje sam vrati na prave datume.</li><li><b>Excel pokvari brojeve.</b> CSV ne otvaraj i ne spremaj u Excelu prije učitavanja; učitaj originalnu datoteku.</li></ul>`
     if (p.source) body += `<p class="note">Izvor: <a href="${p.source.url}" rel="nofollow noopener" target="_blank">${esc(p.source.label)}</a></p>`
-    ld.push({ '@context': 'https://schema.org', '@type': 'HowTo', name: p.h1, description: p.description, inLanguage: 'bs', step: p.steps.map((s, i) => ({ '@type': 'HowToStep', position: i + 1, name: s.t, text: s.d })) })
+    ld.push({ '@context': 'https://schema.org', '@type': 'HowTo', name: p.h1, description: p.description, inLanguage: 'bs', step: p.steps.map((s, i) => ({ '@type': 'HowToStep', position: i + 1, name: s.t, text: s.d, ...(s.img ? { image: SITE + s.img } : {}) })) })
   } else {
     body += p.body.join('')
     ld.push({ '@context': 'https://schema.org', '@type': 'Article', headline: p.h1, description: p.description, inLanguage: 'bs', datePublished: p.date, dateModified: p.date, author: { '@type': 'Organization', name: 'DriveLens' }, mainEntityOfPage: `${SITE}/${p.slug}/`, image: `${SITE}/og.png` })

@@ -10,6 +10,18 @@ const APPS = {
   myopel: { app: 'MyOpel', brand: 'Opel', models: 'Corsa, Astra, Mokka i Grandland (uključujući Hybrid i Electric)', file: 'myopel-trips.csv', note: 'Kod MyOpel aplikacije izvoz putovanja ide preko usluge My Trip Report. Ako ne vidiš opciju za izvoz, provjeri u aplikaciji da je ta usluga aktivirana.' },
 }
 
+// Real screenshots (iPhone, MyDS app, Bosnian UI). Personal files in the last screen are blanked out.
+const REAL_STEPS = {
+  myds: [
+    { t: 'Otvori MyDS aplikaciju', d: 'Pokreni MyDS i prijavi se. Provjeri da je tvoj DS povezan: vožnje se bilježe samo ako su povezane usluge aktivne i auto ima mobilnu mrežu.', img: '/vodic/myds/korak-1.webp', alt: 'Početni ekran MyDS aplikacije' },
+    { t: 'Otvori karticu Vožnja i dodirni strelicu za preuzimanje', d: 'U donjem meniju izaberi Vožnja. Gore desno, pored filtera, dodirni ikonu strelice prema dolje (preuzimanje).', img: '/vodic/myds/korak-2.webp', alt: 'MyDS kartica Vožnja s ikonom za preuzimanje gore desno' },
+    { t: 'Izaberi „Izvoz vaših putovanja“', d: 'Otvara se ekran Podaci o vožnji. Dodirni IZVOZ VAŠIH PUTOVANJA: aplikacija napravi datoteku sa svim putovanjima. Opcija SPREMITE SVOJA PUTOVANJA pravi .myp backup, i njega DriveLens također čita.', img: '/vodic/myds/korak-3.webp', alt: 'MyDS ekran Podaci o vožnji s opcijom Izvoz vaših putovanja' },
+    { t: 'Sačuvaj datoteku: Save to Files', d: 'Pojavi se meni za dijeljenje s datotekom myds-trips-DATUM. Izaberi Save to Files (Spremi u Datoteke) ili je pošalji sebi na Mail ili WhatsApp. Nemoj je prvo otvarati i spremati u Excelu: Excel zna pretvoriti 14.2 km u datum.', img: '/vodic/myds/korak-4.webp', alt: 'iPhone meni za dijeljenje s datotekom myds-trips' },
+    { t: 'Izaberi folder i dodirni Spremi', d: 'Izaberi iCloud Drive ili bilo koji folder i dodirni Spremi. Datoteka je mala (oko 100 KB i za godinu vožnje).', img: '/vodic/myds/korak-5.webp', alt: 'iPhone Datoteke: izbor foldera i dugme Spremi' },
+    { t: 'Učitaj datoteku u DriveLens', d: 'Otvori DriveLens, dodirni polje za učitavanje i izaberi sačuvanu datoteku. Izvještaj se pojavi odmah, a podaci ostaju na tvom uređaju.', screen: ['DriveLens', 'Prevuci CSV ovdje', 'myds-trips-10-14-2026', 'Izvještaj ✓'], hl: 2 },
+  ],
+}
+
 function guide(key) {
   const a = APPS[key]
   return {
@@ -20,7 +32,7 @@ function guide(key) {
     h1: `Kako izvesti vožnje iz ${a.app} aplikacije`,
     kicker: 'Vodič',
     app: a,
-    steps: [
+    steps: REAL_STEPS[key] ?? [
       { t: 'Otvori aplikaciju i provjeri da je auto povezan', d: `Prijavi se u ${a.app} i provjeri da aplikacija prikazuje tvoj ${a.brand}. Vožnje se bilježe samo ako su povezane usluge (Connect) aktivne i auto ima mobilnu mrežu.`, screen: ['Moj auto', `${a.brand} · povezan`, 'Vožnje', 'Usluge'], hl: 1 },
       { t: 'Otvori odjeljak s vožnjama', d: 'Dodirni Vožnje (na engleskom Trips, njemački Fahrten, francuski Trajets). Tu je lista svih vožnji s kilometrima, trajanjem i potrošnjom.', screen: ['Vožnje', '12,4 km · 18 min', '8,1 km · 11 min', '196 km · 2 h 05'], hl: 0 },
       { t: 'Izaberi period “od početka”', d: 'U filteru perioda izaberi najduži period (Od početka / Since the start / Depuis l’origine). Tako dobiješ cijelu historiju, a ne samo zadnji mjesec.', screen: ['Period', 'Ovaj mjesec', 'Zadnja 3 mjeseca', 'Od početka ✓'], hl: 3 },
