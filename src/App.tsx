@@ -1,3 +1,4 @@
+import { LANG_PATH, isLangRoot, langFromPath } from './lib/langPath'
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import { analyze, DEFAULT_SETTINGS, monthKey, type Settings } from './lib/analyze'
 import { demoCsv } from './lib/demo'
@@ -34,15 +35,16 @@ const save = (k: string, v: string | null) => {
 const isLang = (s: unknown): s is Lang => LANGS.some((l) => l.code === s)
 
 function initialLang(): Lang {
+  // The URL decides the language (/, /en/, /de/, /fr/) so every language has one stable, indexable page.
+  const p = langFromPath(location.pathname)
+  if (p) return p
   const q = new URLSearchParams(location.search).get('lang')
   if (isLang(q)) return q
+  // On "/" only an explicit earlier choice switches away from Bosnian (never the browser language,
+  // otherwise crawlers would see a different language than the page declares).
   const s = load(LS.lang)
   if (isLang(s)) return s
-  const n = navigator.language.toLowerCase()
-  if (/^(bs|hr|sr|sh|me)/.test(n)) return 'bs'
-  if (n.startsWith('de')) return 'de'
-  if (n.startsWith('fr')) return 'fr'
-  return 'en'
+  return 'bs'
 }
 
 function initialSettings(): Settings {
@@ -87,8 +89,9 @@ export default function App() {
     save(LS.theme, theme)
     save(LS.lang, lang)
     const u = new URL(location.href)
-    if (u.searchParams.get('lang') && u.searchParams.get('lang') !== lang) {
-      u.searchParams.set('lang', lang)
+    if (isLangRoot(u.pathname) && (u.pathname !== LANG_PATH[lang] || u.searchParams.has('lang'))) {
+      u.pathname = LANG_PATH[lang]
+      u.searchParams.delete('lang')
       history.replaceState(null, '', u)
     }
   }, [theme, lang])
@@ -134,7 +137,7 @@ export default function App() {
 
   const btn = 'grid place-items-center w-10 h-10 rounded-xl transition hover:brightness-110'
   const Brand = (
-    <a href="/" className="flex items-center gap-2.5 font-display font-extrabold text-lg">
+    <a href={LANG_PATH[lang]} className="flex items-center gap-2.5 font-display font-extrabold text-lg">
       <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden>
         <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#f0d3a2" /><stop offset="1" stopColor="#38bdf8" /></linearGradient></defs>
         <circle cx="16" cy="16" r="13" fill="none" stroke="url(#lg)" strokeWidth="3.5" strokeDasharray="62 20" strokeLinecap="round" transform="rotate(130 16 16)" />
