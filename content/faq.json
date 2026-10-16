@@ -1,58 +1,314 @@
 {
-  "bs": [
-    { "q": "Kako izvesti podatke o vožnji iz MyDS, MyCitroën, MyPeugeot ili MyOpel aplikacije?", "a": "U aplikaciji otvori dio s putovanjima (Vožnje / Trips), izaberi period, po mogućnosti cijeli period od početka, i dodirni opciju za izvoz. Aplikacija napravi CSV datoteku koju pošalješ sebi mailom ili spremiš u Files/Drive. Detaljan vodič za svaku aplikaciju je na stranici Vodiči.", "link": "/vodic/" },
-    { "q": "Koliko stvarno troši plug-in hibrid na struju i benzin?", "a": "Zavisi od toga koliko često puniš i koliko voziš autoputem. Na kratkim gradskim vožnjama s punom baterijom potrošnja benzina je nula. Na dugim putovanjima motor radi skoro stalno i PHEV SUV tada obično troši oko 6–8 l/100 km. DriveLens iz tvog izvoza izračuna stvarni udio struje i stvarnu potrošnju kad motor radi.", "link": "/clanci/stvarna-potrosnja-phev-struja-vs-gorivo/" },
-    { "q": "Da li se isplati puniti plug-in hibrid svaki dan?", "a": "Najčešće da. Kilometar na struju kućnom tarifom košta otprilike trećinu kilometra na benzin. Ako ti je svakodnevna ruta unutar električnog dometa, redovno punjenje je najveća ušteda koju PHEV može dati.", "link": "/clanci/da-li-se-isplati-puniti-opel-grandland-hybrid-svaki-dan/" },
-    { "q": "Koliko košta 100 km na struju, a koliko na benzin?", "a": "Uz oko 23 kWh/100 km iz utičnice i cijenu od 0,27 KM/kWh, 100 km na struju košta oko 6 KM. Uz 7 l/100 km i benzin od oko 3 KM/l, 100 km na benzin košta oko 21 KM. U DriveLens postavkama upišeš svoje cijene i dobiješ tačan iznos." },
-    { "q": "Zašto neke vožnje u aplikaciji nemaju upisanu potrošnju?", "a": "Kod plug-in hibrida to su vožnje na kojima motor nije potrošio ni kap benzina, odnosno vožnje samo na struju. DriveLens ih tako i tretira." },
-    { "q": "Zašto se u aplikaciji pojavljuju vožnje iz 2007. godine?", "a": "To se dešava kad se sat u autu resetuje, npr. nakon odspajanja akumulatora ili servisa. Vožnje dobiju datum 1.1.2007. i dalje. DriveLens ih prepozna i vrati na stvarne datume prema kilometraži." },
-    { "q": "Zašto se kilometri u aplikaciji ne poklapaju s brojačem?", "a": "Auto ponekad ne pošalje vožnje aplikaciji, najčešće u inostranstvu ili bez mobilne mreže. DriveLens poredi brojač s kilometrima u logu, pokaže rupe po periodima i procijeni koliko su koštale." },
-    { "q": "Da li punjenje baterije motorom (e-Save) ima smisla?", "a": "Rijetko. Punjenje baterije motorom tokom vožnje povećava potrošnju benzina, a ta struja nije besplatna. U stvarnim podacima potrošnja na autoputu u takvim periodima bude oko 10–15 % veća. Ima smisla samo ako ti električni domet treba na kraju puta, npr. u gradu sa zonom niske emisije.", "link": "/clanci/e-save-punjenje-baterije-motorom/" },
-    { "q": "Koliko PHEV troši na autoputu?", "a": "Kad je baterija prazna, plug-in hibrid na autoputu vozi kao obični benzinac, a zbog težine baterije obično troši oko 6–8 l/100 km. DriveLens tu vrijednost izračuna iz tvojih dugih vožnji." },
-    { "q": "Koliki je električni domet plug-in hibrida zimi?", "a": "Zimi je domet primjetno manji zbog grijanja i hladne baterije, često 20–30 % manje nego ljeti. U DriveLensu se to vidi po mjesecima: zimi raste broj kratkih vožnji na kojima motor ipak upali." },
-    { "q": "Koja je razlika između hibrida i plug-in hibrida?", "a": "Obični (full ili mild) hibrid nema utičnicu i bateriju puni sam tokom vožnje. Plug-in hibrid ima veću bateriju koju puniš iz utičnice i može voziti desetine kilometara samo na struju." },
-    { "q": "Da li su moji podaci sigurni?", "a": "Da. DriveLens sve računa lokalno u tvom pregledniku. CSV se ne šalje ni na jedan server, a na uređaju se pamti samo ako to sam uključiš." },
-    { "q": "Koje aplikacije i automobili su podržani?", "a": "MyDS, MyCitroën, MyPeugeot i MyOpel (Stellantis), za benzince, dizelaše, plug-in hibride i električna vozila. Podržan je CSV izvoz putovanja i .myp / JSON backup." },
-    { "q": "Mogu li DriveLens koristiti kao putni nalog ili službenu evidenciju?", "a": "Ne. Podaci iz aplikacije nisu zvanična knjiga vožnje i mogu imati rupe. DriveLens je alat za pregled i procjenu troškova." },
-    { "q": "Kako izračunati koliko je plug-in hibrid uštedio?", "a": "Uzmi kilometre pređene na struju, pomnoži ih potrošnjom motora na autoputu i cijenom benzina, pa oduzmi cijenu struje. DriveLens to radi automatski i pokazuje uštedu po mjesecima." },
-    { "q": "Kako izuzeti mjesec iz statistike?", "a": "U grafikonu kilometara po mjesecu klikni na mjesec ili ga izaberi u postavkama. To je korisno za probne mjesece ili neuobičajena putovanja koja kvare prosjek." },
-    { "q": "Mogu li unijeti stvarne cijene goriva po datumu?", "a": "Da. U postavkama dodaješ cijenu za svaki datum, a između datuma se cijena interpolira. Za FBiH postoji ugrađen prosjek za benzin 95." },
-    { "q": "Koliko kilometara godišnje vozim?", "a": "DriveLens iz brojača kilometara izračuna mjesečni i godišnji prosjek, uključujući i periode koje auto nije poslao aplikaciji." }
-  ],
-  "en": [
-    { "q": "How do I export trip data from MyDS, MyCitroën, MyPeugeot or MyOpel?", "a": "Open the Trips section in the app, choose a period (ideally everything since the start) and tap export. The app creates a CSV file that you email to yourself or save to Files/Drive." },
-    { "q": "How much does a plug-in hybrid really use on electricity and fuel?", "a": "It depends on how often you charge and how much motorway driving you do. Short trips with a charged battery use no fuel; long trips run mostly on the engine, typically 6–8 l/100 km for a PHEV SUV. DriveLens calculates your real electric share and real engine consumption." },
-    { "q": "Is it worth charging a plug-in hybrid every day?", "a": "Usually yes. An electric kilometre at home tariffs costs roughly a third of a petrol kilometre. If your daily route fits within the electric range, regular charging is the biggest saving a PHEV offers." },
-    { "q": "Why do some trips have no consumption value?", "a": "For plug-in hybrids those are trips where the engine used no fuel at all, i.e. fully electric trips." },
-    { "q": "Why do I see trips from 2007?", "a": "The car clock was reset, for example after disconnecting the 12 V battery. DriveLens detects these trips and moves them back to their real dates using the odometer." },
-    { "q": "Why doesn't the logged distance match the odometer?", "a": "The car sometimes fails to report trips, often abroad or without mobile coverage. DriveLens compares the odometer with the log, shows the gaps and estimates their cost." },
-    { "q": "Does charging the battery with the engine (e-Save) make sense?", "a": "Rarely. It raises fuel consumption, and that electricity is not free. It only makes sense when you need electric range at the end of a trip, e.g. in a low-emission zone." },
-    { "q": "Is my data safe?", "a": "Yes. Everything is calculated locally in your browser. The CSV is never uploaded, and it is only remembered on your device if you turn that on." },
-    { "q": "Which apps and cars are supported?", "a": "MyDS, MyCitroën, MyPeugeot and MyOpel for petrol, diesel, plug-in hybrid and electric cars. Both the trips CSV and the .myp / JSON backup are supported." },
-    { "q": "Can I use DriveLens as an official mileage log?", "a": "No. App data is not an official logbook and can have gaps. DriveLens is a tool for insight and cost estimates." }
-  ],
-  "de": [
-    { "q": "Wie exportiere ich Fahrtdaten aus MyDS, MyCitroën, MyPeugeot oder MyOpel?", "a": "Öffne in der App den Bereich „Fahrten“, wähle einen Zeitraum (am besten alles seit Beginn) und tippe auf Exportieren. Die App erstellt eine CSV-Datei, die du dir per E-Mail schickst oder in Dateien/Drive speicherst." },
-    { "q": "Wie viel verbraucht ein Plug-in-Hybrid wirklich an Strom und Benzin?", "a": "Das hängt davon ab, wie oft du lädst und wie viel Autobahn du fährst. Kurze Fahrten mit geladener Batterie verbrauchen kein Benzin, lange Fahrten laufen meist mit Motor, typischerweise 6–8 l/100 km bei einem PHEV-SUV. DriveLens berechnet deinen echten Elektroanteil und den echten Motorverbrauch." },
-    { "q": "Lohnt es sich, einen Plug-in-Hybrid jeden Tag zu laden?", "a": "Meistens ja. Ein elektrischer Kilometer mit Haushaltsstrom kostet etwa ein Drittel eines Benzinkilometers. Passt deine tägliche Strecke in die elektrische Reichweite, ist regelmäßiges Laden die größte Ersparnis." },
-    { "q": "Warum haben manche Fahrten keinen Verbrauchswert?", "a": "Bei Plug-in-Hybriden sind das Fahrten, bei denen der Motor keinen Tropfen Benzin verbraucht hat, also rein elektrische Fahrten." },
-    { "q": "Warum sehe ich Fahrten aus dem Jahr 2007?", "a": "Die Fahrzeuguhr wurde zurückgesetzt, z. B. nach dem Abklemmen der 12-V-Batterie. DriveLens erkennt diese Fahrten und setzt sie anhand des Kilometerstands auf das echte Datum." },
-    { "q": "Warum passen die Kilometer in der App nicht zum Kilometerzähler?", "a": "Das Auto meldet manchmal keine Fahrten, oft im Ausland oder ohne Mobilfunk. DriveLens vergleicht den Zähler mit dem Log, zeigt die Lücken und schätzt ihre Kosten." },
-    { "q": "Ist das Laden der Batterie mit dem Motor (e-Save) sinnvoll?", "a": "Selten. Es erhöht den Benzinverbrauch, und dieser Strom ist nicht kostenlos. Sinnvoll nur, wenn du am Ende der Fahrt elektrische Reichweite brauchst, z. B. in einer Umweltzone." },
-    { "q": "Sind meine Daten sicher?", "a": "Ja. Alles wird lokal in deinem Browser berechnet. Die CSV wird nie hochgeladen und nur auf deinem Gerät gespeichert, wenn du das einschaltest." },
-    { "q": "Welche Apps und Autos werden unterstützt?", "a": "MyDS, MyCitroën, MyPeugeot und MyOpel für Benziner, Diesel, Plug-in-Hybride und Elektroautos. Unterstützt werden die Fahrten-CSV und das .myp-/JSON-Backup." },
-    { "q": "Kann ich DriveLens als Fahrtenbuch verwenden?", "a": "Nein. Die App-Daten sind kein steuerlich anerkanntes Fahrtenbuch und können Lücken haben. DriveLens dient der Übersicht und Kostenschätzung." }
-  ],
-  "fr": [
-    { "q": "Comment exporter les trajets de MyDS, MyCitroën, MyPeugeot ou MyOpel ?", "a": "Ouvrez la section « Trajets » de l’application, choisissez une période (idéalement « Depuis l’origine ») et touchez Exporter. L’application crée un fichier CSV que vous vous envoyez par e-mail ou enregistrez dans Fichiers/Drive." },
-    { "q": "Combien consomme vraiment un hybride rechargeable en électricité et en carburant ?", "a": "Cela dépend de la fréquence de recharge et de la part d’autoroute. Les trajets courts batterie chargée ne consomment pas de carburant ; les longs trajets se font surtout au moteur, en général 6 à 8 l/100 km pour un SUV PHEV. DriveLens calcule votre part électrique réelle et la consommation réelle du moteur." },
-    { "q": "Faut-il recharger un hybride rechargeable tous les jours ?", "a": "Le plus souvent oui. Un kilomètre électrique au tarif domestique coûte environ un tiers d’un kilomètre essence. Si votre trajet quotidien tient dans l’autonomie électrique, la recharge régulière est la plus grosse économie." },
-    { "q": "Pourquoi certains trajets n’ont-ils pas de consommation ?", "a": "Pour les hybrides rechargeables, ce sont des trajets où le moteur n’a consommé aucune goutte de carburant : des trajets 100 % électriques." },
-    { "q": "Pourquoi vois-je des trajets de 2007 ?", "a": "L’horloge de la voiture a été réinitialisée, par exemple après un débranchement de la batterie 12 V. DriveLens détecte ces trajets et les replace à leur vraie date grâce au kilométrage." },
-    { "q": "Pourquoi le kilométrage de l’application ne correspond-il pas au compteur ?", "a": "La voiture ne transmet parfois pas les trajets, souvent à l’étranger ou sans réseau. DriveLens compare le compteur à l’historique, montre les trous et estime leur coût." },
-    { "q": "Recharger la batterie avec le moteur (e-Save) a-t-il un intérêt ?", "a": "Rarement. Cela augmente la consommation de carburant et cette électricité n’est pas gratuite. Utile seulement si vous avez besoin d’autonomie électrique en fin de trajet, par exemple en ZFE." },
-    { "q": "Mes données sont-elles en sécurité ?", "a": "Oui. Tout est calculé localement dans votre navigateur. Le CSV n’est jamais envoyé et n’est mémorisé sur votre appareil que si vous l’activez." },
-    { "q": "Quelles applications et voitures sont prises en charge ?", "a": "MyDS, MyCitroën, MyPeugeot et MyOpel, pour les voitures essence, diesel, hybrides rechargeables et électriques. Le CSV des trajets et la sauvegarde .myp / JSON sont pris en charge." },
-    { "q": "Puis-je utiliser DriveLens comme carnet de bord officiel ?", "a": "Non. Les données de l’application ne constituent pas un carnet officiel et peuvent avoir des trous. DriveLens sert à l’analyse et à l’estimation des coûts." }
-  ]
+ "bs": [
+  {
+   "q": "Kako izvesti podatke o vožnji iz MyDS, MyCitroën, MyPeugeot ili MyOpel aplikacije?",
+   "a": "U aplikaciji otvori dio s putovanjima (Vožnje / Trips), izaberi period, po mogućnosti cijeli period od početka, i dodirni opciju za izvoz. Aplikacija napravi CSV datoteku koju pošalješ sebi mailom ili spremiš u Files/Drive. Detaljan vodič za svaku aplikaciju je na stranici Vodiči.",
+   "link": "/vodic/"
+  },
+  {
+   "q": "Koliko stvarno troši plug-in hibrid na struju i benzin?",
+   "a": "Zavisi od toga koliko često puniš i koliko voziš autoputem. Na kratkim gradskim vožnjama s punom baterijom potrošnja benzina je nula. Na dugim putovanjima motor radi skoro stalno i PHEV SUV tada obično troši oko 6–8 l/100 km. DriveLens iz tvog izvoza izračuna stvarni udio struje i stvarnu potrošnju kad motor radi.",
+   "link": "/clanci/stvarna-potrosnja-phev-struja-vs-gorivo/"
+  },
+  {
+   "q": "Da li se isplati puniti plug-in hibrid svaki dan?",
+   "a": "Najčešće da. Kilometar na struju kućnom tarifom košta otprilike trećinu kilometra na benzin. Ako ti je svakodnevna ruta unutar električnog dometa, redovno punjenje je najveća ušteda koju PHEV može dati.",
+   "link": "/clanci/da-li-se-isplati-puniti-opel-grandland-hybrid-svaki-dan/"
+  },
+  {
+   "q": "Koliko košta 100 km na struju, a koliko na benzin?",
+   "a": "Uz oko 23 kWh/100 km iz utičnice i cijenu od 0,27 KM/kWh, 100 km na struju košta oko 6 KM. Uz 7 l/100 km i benzin od oko 3 KM/l, 100 km na benzin košta oko 21 KM. U DriveLens postavkama upišeš svoje cijene i dobiješ tačan iznos."
+  },
+  {
+   "q": "Zašto neke vožnje u aplikaciji nemaju upisanu potrošnju?",
+   "a": "Kod plug-in hibrida to su vožnje na kojima motor nije potrošio ni kap benzina, odnosno vožnje samo na struju. DriveLens ih tako i tretira."
+  },
+  {
+   "q": "Zašto se u aplikaciji pojavljuju vožnje iz 2007. godine?",
+   "a": "To se dešava kad se sat u autu resetuje, npr. nakon odspajanja akumulatora ili servisa. Vožnje dobiju datum 1.1.2007. i dalje. DriveLens ih prepozna i vrati na stvarne datume prema kilometraži."
+  },
+  {
+   "q": "Zašto se kilometri u aplikaciji ne poklapaju s brojačem?",
+   "a": "Auto ponekad ne pošalje vožnje aplikaciji, najčešće u inostranstvu ili bez mobilne mreže. DriveLens poredi brojač s kilometrima u logu, pokaže rupe po periodima i procijeni koliko su koštale."
+  },
+  {
+   "q": "Da li punjenje baterije motorom (e-Save) ima smisla?",
+   "a": "Rijetko. Punjenje baterije motorom tokom vožnje povećava potrošnju benzina, a ta struja nije besplatna. U stvarnim podacima potrošnja na autoputu u takvim periodima bude oko 10–15 % veća. Ima smisla samo ako ti električni domet treba na kraju puta, npr. u gradu sa zonom niske emisije.",
+   "link": "/clanci/e-save-punjenje-baterije-motorom/"
+  },
+  {
+   "q": "Koliko PHEV troši na autoputu?",
+   "a": "Kad je baterija prazna, plug-in hibrid na autoputu vozi kao obični benzinac, a zbog težine baterije obično troši oko 6–8 l/100 km. DriveLens tu vrijednost izračuna iz tvojih dugih vožnji."
+  },
+  {
+   "q": "Koliki je električni domet plug-in hibrida zimi?",
+   "a": "Zimi je domet primjetno manji zbog grijanja i hladne baterije, često 20–30 % manje nego ljeti. U DriveLensu se to vidi po mjesecima: zimi raste broj kratkih vožnji na kojima motor ipak upali."
+  },
+  {
+   "q": "Koja je razlika između hibrida i plug-in hibrida?",
+   "a": "Obični (full ili mild) hibrid nema utičnicu i bateriju puni sam tokom vožnje. Plug-in hibrid ima veću bateriju koju puniš iz utičnice i može voziti desetine kilometara samo na struju."
+  },
+  {
+   "q": "Da li su moji podaci sigurni?",
+   "a": "Da. DriveLens sve računa lokalno u tvom pregledniku. CSV se ne šalje ni na jedan server, a na uređaju se pamti samo ako to sam uključiš."
+  },
+  {
+   "q": "Koje aplikacije i automobili su podržani?",
+   "a": "MyDS, MyCitroën, MyPeugeot i MyOpel (Stellantis), za benzince, dizelaše, plug-in hibride i električna vozila. Podržan je CSV izvoz putovanja i .myp / JSON backup."
+  },
+  {
+   "q": "Mogu li DriveLens koristiti kao putni nalog ili službenu evidenciju?",
+   "a": "Ne. Podaci iz aplikacije nisu zvanična knjiga vožnje i mogu imati rupe. DriveLens je alat za pregled i procjenu troškova."
+  },
+  {
+   "q": "Kako izračunati koliko je plug-in hibrid uštedio?",
+   "a": "Uzmi kilometre pređene na struju, pomnoži ih potrošnjom motora i cijenom goriva, pa oduzmi cijenu struje. DriveLens to radi automatski i pokazuje uštedu po mjesecima."
+  },
+  {
+   "q": "Kako izuzeti mjesec iz statistike?",
+   "a": "U grafikonu kilometara po mjesecu klikni na mjesec ili ga izaberi u postavkama. To je korisno za probne mjesece ili neuobičajena putovanja koja kvare prosjek."
+  },
+  {
+   "q": "Mogu li unijeti stvarne cijene goriva po datumu?",
+   "a": "Da. Na vrhu izvještaja izabereš državu i DriveLens koristi historiju cijena goriva za nju (EU sedmični bilten, za BiH prosjek FBiH). Možeš i u postavkama upisati svoje cijene po datumu; između datuma se cijena interpolira."
+  },
+  {
+   "q": "Koliko kilometara godišnje vozim?",
+   "a": "DriveLens iz brojača kilometara izračuna mjesečni i godišnji prosjek, uključujući i periode koje auto nije poslao aplikaciji."
+  }
+ ],
+ "en": [
+  {
+   "q": "How do I export trip data from MyDS, MyCitroën, MyPeugeot or MyOpel?",
+   "a": "In the app, open the trips section, choose a period (ideally everything since the start) and tap export. The app creates a CSV file that you email to yourself or save to Files/Drive. There is a step-by-step guide for each app on the Guides page.",
+   "link": "/en/guides/"
+  },
+  {
+   "q": "How much does a plug-in hybrid really use on electricity and petrol?",
+   "a": "It depends on how often you charge and how much motorway driving you do. On short city trips with a charged battery, petrol use is zero. On long journeys the engine runs almost constantly and a PHEV SUV typically uses about 6–8 l/100 km. DriveLens calculates your real electric share and your real consumption with the engine running from your export.",
+   "link": "/en/articles/real-phev-consumption-electric-vs-petrol/"
+  },
+  {
+   "q": "Is it worth charging a plug-in hybrid every day?",
+   "a": "Usually yes. An electric kilometre at a home tariff costs roughly a third to a half of a petrol kilometre. If your daily route fits within the electric range, regular charging is the biggest saving a PHEV can give you.",
+   "link": "/en/articles/is-it-worth-charging-opel-grandland-hybrid-every-day/"
+  },
+  {
+   "q": "What does 100 km cost on electricity versus petrol?",
+   "a": "At about 23 kWh/100 km from the socket and €0.30/kWh, 100 km on electricity costs about €7. At 7 l/100 km and petrol at €1.75/l, 100 km on petrol costs about €12. DriveLens uses fuel prices for your country, or your own prices, to give you the exact figure."
+  },
+  {
+   "q": "Why do some trips in the app have no consumption value?",
+   "a": "For plug-in hybrids these are trips on which the engine didn’t burn a drop of petrol, i.e. electric-only trips. DriveLens treats them exactly that way."
+  },
+  {
+   "q": "Why does the app show trips from 2007?",
+   "a": "This happens when the car’s clock is reset, for example after the 12 V battery is disconnected or after a service. Trips get dates from 1 January 2007 onwards. DriveLens detects them and moves them back to their real dates using the odometer."
+  },
+  {
+   "q": "Why don’t the kilometres in the app match the odometer?",
+   "a": "The car sometimes doesn’t send trips to the app, usually abroad or without mobile coverage. DriveLens compares the odometer with the logged kilometres, shows the gaps by period and estimates what they cost."
+  },
+  {
+   "q": "Does charging the battery with the engine (e-Save) make sense?",
+   "a": "Rarely. Charging the battery with the engine while driving increases petrol consumption, and that electricity isn’t free. In real data, motorway consumption during such periods is about 10–15% higher. It only makes sense if you need electric range at the end of your trip, e.g. in a low-emission zone.",
+   "link": "/en/articles/e-save-charging-battery-with-engine/"
+  },
+  {
+   "q": "How much does a PHEV use on the motorway?",
+   "a": "With an empty battery, a plug-in hybrid drives like an ordinary petrol car on the motorway and, because of the battery’s weight, usually uses about 6–8 l/100 km. DriveLens calculates this value from your long trips."
+  },
+  {
+   "q": "What is a plug-in hybrid’s electric range in winter?",
+   "a": "In winter the range is noticeably shorter because of heating and a cold battery, often 20–30% less than in summer. DriveLens shows this by month: in winter there are more short trips on which the engine starts anyway."
+  },
+  {
+   "q": "What is the difference between a hybrid and a plug-in hybrid?",
+   "a": "A regular (full or mild) hybrid has no charging socket and charges its battery itself while driving. A plug-in hybrid has a larger battery that you charge from a socket and can drive tens of kilometres on electricity alone."
+  },
+  {
+   "q": "Is my data safe?",
+   "a": "Yes. DriveLens does all the calculations locally in your browser. The CSV is never sent to any server, and it is only remembered on your device if you turn that on yourself."
+  },
+  {
+   "q": "Which apps and cars are supported?",
+   "a": "MyDS, MyCitroën, MyPeugeot and MyOpel (Stellantis), for petrol, diesel, plug-in hybrid and electric cars. Both the CSV trip export and the .myp / JSON backup are supported."
+  },
+  {
+   "q": "Can I use DriveLens as an official mileage log?",
+   "a": "No. Data from the app is not an official logbook and can have gaps. DriveLens is a tool for reviewing your driving and estimating costs."
+  },
+  {
+   "q": "How do I calculate how much my plug-in hybrid has saved?",
+   "a": "Take the kilometres driven on electricity, multiply them by the engine’s consumption and the fuel price, then subtract the cost of the electricity. DriveLens does this automatically and shows the saving by month."
+  },
+  {
+   "q": "How do I exclude a month from the statistics?",
+   "a": "Click the month in the kilometres-per-month chart or select it in the settings. This is useful for trial months or unusual trips that distort the average."
+  },
+  {
+   "q": "Can I enter real fuel prices by date?",
+   "a": "Yes. At the top of the report you choose a country, and DriveLens uses its fuel price history (EU Weekly Oil Bulletin; for Bosnia and Herzegovina the FBiH average). You can also enter your own prices by date in the settings; prices between dates are interpolated."
+  },
+  {
+   "q": "How many kilometres do I drive per year?",
+   "a": "DriveLens calculates your monthly and yearly average from the odometer, including periods the car didn’t send to the app."
+  }
+ ],
+ "de": [
+  {
+   "q": "Wie exportiere ich Fahrtdaten aus MyDS, MyCitroën, MyPeugeot oder MyOpel?",
+   "a": "Öffne in der App den Bereich mit den Fahrten, wähle einen Zeitraum (am besten alles seit Beginn) und tippe auf Exportieren. Die App erstellt eine CSV-Datei, die du dir per Mail schickst oder in Dateien/Drive speicherst. Für jede App gibt es eine Schritt-für-Schritt-Anleitung auf der Seite Anleitungen.",
+   "link": "/de/anleitungen/"
+  },
+  {
+   "q": "Wie viel Strom und Benzin verbraucht ein Plug-in-Hybrid wirklich?",
+   "a": "Das hängt davon ab, wie oft du lädst und wie viel du Autobahn fährst. Auf kurzen Stadtfahrten mit geladener Batterie ist der Benzinverbrauch null. Auf langen Fahrten läuft der Motor fast ständig, und ein PHEV-SUV braucht dann meist etwa 6–8 l/100 km. DriveLens berechnet aus deinem Export den echten elektrischen Anteil und den echten Verbrauch mit laufendem Motor.",
+   "link": "/de/artikel/realer-phev-verbrauch-strom-vs-benzin/"
+  },
+  {
+   "q": "Lohnt es sich, einen Plug-in-Hybrid jeden Tag zu laden?",
+   "a": "Meistens ja. Ein elektrischer Kilometer zum Haushaltstarif kostet etwa ein Drittel bis die Hälfte eines Benzinkilometers. Passt deine tägliche Strecke in die elektrische Reichweite, ist regelmäßiges Laden die größte Ersparnis, die ein PHEV bietet.",
+   "link": "/de/artikel/lohnt-sich-opel-grandland-hybrid-taeglich-laden/"
+  },
+  {
+   "q": "Was kosten 100 km mit Strom und was mit Benzin?",
+   "a": "Bei etwa 23 kWh/100 km aus der Steckdose und 0,30 €/kWh kosten 100 km elektrisch rund 7 €. Bei 7 l/100 km und Benzin zu 1,75 €/l kosten 100 km mit Benzin rund 12 €. DriveLens nutzt die Kraftstoffpreise deines Landes oder deine eigenen Preise und zeigt den genauen Betrag."
+  },
+  {
+   "q": "Warum haben manche Fahrten in der App keinen Verbrauchswert?",
+   "a": "Bei Plug-in-Hybriden sind das Fahrten, auf denen der Motor keinen Tropfen Benzin verbraucht hat, also rein elektrische Fahrten. DriveLens behandelt sie genau so."
+  },
+  {
+   "q": "Warum zeigt die App Fahrten aus dem Jahr 2007?",
+   "a": "Das passiert, wenn die Uhr im Auto zurückgesetzt wird, etwa nach dem Abklemmen der 12-V-Batterie oder nach einem Service. Die Fahrten bekommen Daten ab dem 1. Januar 2007. DriveLens erkennt sie und setzt sie anhand des Kilometerstands auf ihr echtes Datum."
+  },
+  {
+   "q": "Warum stimmen die Kilometer in der App nicht mit dem Tacho überein?",
+   "a": "Das Auto sendet Fahrten manchmal nicht an die App, meist im Ausland oder ohne Mobilfunknetz. DriveLens vergleicht den Kilometerstand mit den protokollierten Kilometern, zeigt die Lücken nach Zeitraum und schätzt, was sie gekostet haben."
+  },
+  {
+   "q": "Ist das Laden der Batterie mit dem Motor (e-Save) sinnvoll?",
+   "a": "Selten. Das Laden der Batterie mit dem Motor während der Fahrt erhöht den Benzinverbrauch, und dieser Strom ist nicht gratis. In echten Daten liegt der Autobahnverbrauch in solchen Zeiträumen um etwa 10–15 % höher. Sinnvoll ist es nur, wenn du am Ende der Fahrt elektrische Reichweite brauchst, z. B. in einer Umweltzone.",
+   "link": "/de/artikel/e-save-batterie-mit-motor-laden/"
+  },
+  {
+   "q": "Wie viel verbraucht ein PHEV auf der Autobahn?",
+   "a": "Mit leerer Batterie fährt ein Plug-in-Hybrid auf der Autobahn wie ein normaler Benziner und verbraucht wegen des Batteriegewichts meist etwa 6–8 l/100 km. DriveLens berechnet diesen Wert aus deinen langen Fahrten."
+  },
+  {
+   "q": "Wie groß ist die elektrische Reichweite eines Plug-in-Hybrids im Winter?",
+   "a": "Im Winter ist die Reichweite wegen der Heizung und der kalten Batterie spürbar geringer, oft 20–30 % weniger als im Sommer. In DriveLens siehst du das nach Monaten: Im Winter gibt es mehr kurze Fahrten, auf denen der Motor trotzdem anspringt."
+  },
+  {
+   "q": "Was ist der Unterschied zwischen Hybrid und Plug-in-Hybrid?",
+   "a": "Ein normaler Hybrid (Voll- oder Mildhybrid) hat keine Ladebuchse und lädt seine Batterie während der Fahrt selbst. Ein Plug-in-Hybrid hat eine größere Batterie, die du an der Steckdose lädst, und kann Dutzende Kilometer rein elektrisch fahren."
+  },
+  {
+   "q": "Sind meine Daten sicher?",
+   "a": "Ja. DriveLens rechnet alles lokal in deinem Browser. Die CSV wird an keinen Server gesendet und nur dann auf deinem Gerät gespeichert, wenn du das selbst einschaltest."
+  },
+  {
+   "q": "Welche Apps und Autos werden unterstützt?",
+   "a": "MyDS, MyCitroën, MyPeugeot und MyOpel (Stellantis), für Benziner, Diesel, Plug-in-Hybride und Elektroautos. Unterstützt werden der CSV-Fahrtenexport und das .myp- / JSON-Backup."
+  },
+  {
+   "q": "Kann ich DriveLens als Fahrtenbuch verwenden?",
+   "a": "Nein. Die Daten aus der App sind kein offizielles Fahrtenbuch und können Lücken haben. DriveLens ist ein Werkzeug zur Auswertung und Kostenschätzung."
+  },
+  {
+   "q": "Wie berechne ich, wie viel mein Plug-in-Hybrid gespart hat?",
+   "a": "Nimm die elektrisch gefahrenen Kilometer, multipliziere sie mit dem Motorverbrauch und dem Kraftstoffpreis und zieh die Stromkosten ab. DriveLens macht das automatisch und zeigt die Ersparnis pro Monat."
+  },
+  {
+   "q": "Wie nehme ich einen Monat aus der Statistik heraus?",
+   "a": "Klicke im Diagramm Kilometer pro Monat auf den Monat oder wähle ihn in den Einstellungen aus. Das ist nützlich für Testmonate oder ungewöhnliche Reisen, die den Durchschnitt verzerren."
+  },
+  {
+   "q": "Kann ich echte Kraftstoffpreise nach Datum eingeben?",
+   "a": "Ja. Oben im Bericht wählst du ein Land, und DriveLens nutzt dessen Kraftstoffpreis-Historie (EU Weekly Oil Bulletin; für Bosnien und Herzegowina den FBiH-Durchschnitt). In den Einstellungen kannst du auch eigene Preise nach Datum eintragen; zwischen den Daten wird interpoliert."
+  },
+  {
+   "q": "Wie viele Kilometer fahre ich pro Jahr?",
+   "a": "DriveLens berechnet aus dem Kilometerstand deinen Monats- und Jahresdurchschnitt, einschließlich der Zeiträume, die das Auto nicht an die App gesendet hat."
+  }
+ ],
+ "fr": [
+  {
+   "q": "Comment exporter les données de trajets de MyDS, MyCitroën, MyPeugeot ou MyOpel ?",
+   "a": "Dans l’application, ouvrez la section des trajets, choisissez une période (idéalement tout depuis l’origine) et touchez Exporter. L’application crée un fichier CSV que vous vous envoyez par e-mail ou enregistrez dans Fichiers/Drive. Un guide pas à pas pour chaque application se trouve sur la page Guides.",
+   "link": "/fr/guides/"
+  },
+  {
+   "q": "Combien consomme vraiment un hybride rechargeable en électricité et en essence ?",
+   "a": "Cela dépend de la fréquence de recharge et de la part d’autoroute. Sur de courts trajets en ville batterie chargée, la consommation d’essence est nulle. Sur les longs trajets, le moteur tourne presque en permanence et un SUV PHEV consomme alors généralement 6 à 8 l/100 km. DriveLens calcule à partir de votre export la part électrique réelle et la consommation réelle moteur allumé.",
+   "link": "/fr/articles/consommation-reelle-phev-electricite-vs-essence/"
+  },
+  {
+   "q": "Faut-il recharger un hybride rechargeable tous les jours ?",
+   "a": "Le plus souvent, oui. Un kilomètre électrique au tarif domestique coûte environ un tiers à la moitié d’un kilomètre à l’essence. Si votre trajet quotidien tient dans l’autonomie électrique, la recharge régulière est la plus grosse économie qu’un PHEV puisse offrir.",
+   "link": "/fr/articles/faut-il-recharger-opel-grandland-hybrid-chaque-jour/"
+  },
+  {
+   "q": "Combien coûtent 100 km en électrique et à l’essence ?",
+   "a": "Avec environ 23 kWh/100 km à la prise et 0,30 €/kWh, 100 km en électrique coûtent environ 7 €. À 7 l/100 km et une essence à 1,75 €/l, 100 km à l’essence coûtent environ 12 €. DriveLens utilise les prix des carburants de votre pays, ou vos propres prix, pour donner le montant exact."
+  },
+  {
+   "q": "Pourquoi certains trajets n’ont-ils pas de consommation dans l’application ?",
+   "a": "Pour les hybrides rechargeables, ce sont des trajets où le moteur n’a pas consommé une goutte d’essence, donc des trajets 100 % électriques. DriveLens les traite exactement ainsi."
+  },
+  {
+   "q": "Pourquoi l’application affiche-t-elle des trajets de 2007 ?",
+   "a": "Cela arrive quand l’horloge de la voiture est réinitialisée, par exemple après le débranchement de la batterie 12 V ou un entretien. Les trajets reçoivent des dates à partir du 1er janvier 2007. DriveLens les repère et les remet à leur vraie date grâce au kilométrage."
+  },
+  {
+   "q": "Pourquoi les kilomètres de l’application ne correspondent-ils pas au compteur ?",
+   "a": "La voiture n’envoie parfois pas les trajets à l’application, le plus souvent à l’étranger ou sans réseau mobile. DriveLens compare le compteur aux kilomètres enregistrés, montre les trous par période et estime leur coût."
+  },
+  {
+   "q": "Recharger la batterie avec le moteur (e-Save) a-t-il un intérêt ?",
+   "a": "Rarement. Recharger la batterie avec le moteur en roulant augmente la consommation d’essence, et cette électricité n’est pas gratuite. Dans les données réelles, la consommation sur autoroute est alors environ 10 à 15 % plus élevée. Cela n’a de sens que si vous avez besoin d’autonomie électrique à l’arrivée, par exemple dans une zone à faibles émissions.",
+   "link": "/fr/articles/e-save-recharger-batterie-avec-moteur/"
+  },
+  {
+   "q": "Combien consomme un PHEV sur autoroute ?",
+   "a": "Batterie vide, un hybride rechargeable roule sur autoroute comme une voiture essence classique et, à cause du poids de la batterie, consomme généralement 6 à 8 l/100 km. DriveLens calcule cette valeur à partir de vos longs trajets."
+  },
+  {
+   "q": "Quelle est l’autonomie électrique d’un hybride rechargeable en hiver ?",
+   "a": "En hiver, l’autonomie est nettement plus faible à cause du chauffage et de la batterie froide, souvent 20 à 30 % de moins qu’en été. DriveLens le montre mois par mois : en hiver, il y a plus de trajets courts où le moteur démarre quand même."
+  },
+  {
+   "q": "Quelle est la différence entre un hybride et un hybride rechargeable ?",
+   "a": "Un hybride classique (full ou mild) n’a pas de prise et recharge sa batterie lui-même en roulant. Un hybride rechargeable a une batterie plus grande que l’on recharge sur une prise et peut parcourir plusieurs dizaines de kilomètres en tout électrique."
+  },
+  {
+   "q": "Mes données sont-elles en sécurité ?",
+   "a": "Oui. DriveLens fait tous les calculs localement dans votre navigateur. Le CSV n’est envoyé à aucun serveur et n’est conservé sur votre appareil que si vous l’activez vous-même."
+  },
+  {
+   "q": "Quelles applications et quelles voitures sont prises en charge ?",
+   "a": "MyDS, MyCitroën, MyPeugeot et MyOpel (Stellantis), pour les voitures essence, diesel, hybrides rechargeables et électriques. L’export CSV des trajets et la sauvegarde .myp / JSON sont pris en charge."
+  },
+  {
+   "q": "Puis-je utiliser DriveLens comme carnet de bord officiel ?",
+   "a": "Non. Les données de l’application ne constituent pas un carnet de bord officiel et peuvent comporter des trous. DriveLens est un outil d’analyse et d’estimation des coûts."
+  },
+  {
+   "q": "Comment calculer combien mon hybride rechargeable m’a fait économiser ?",
+   "a": "Prenez les kilomètres parcourus en électrique, multipliez-les par la consommation du moteur et le prix du carburant, puis soustrayez le coût de l’électricité. DriveLens le fait automatiquement et affiche l’économie par mois."
+  },
+  {
+   "q": "Comment exclure un mois des statistiques ?",
+   "a": "Cliquez sur le mois dans le graphique des kilomètres par mois ou sélectionnez-le dans les réglages. C’est utile pour les mois d’essai ou les voyages inhabituels qui faussent la moyenne."
+  },
+  {
+   "q": "Puis-je saisir les vrais prix des carburants par date ?",
+   "a": "Oui. En haut du rapport, vous choisissez un pays et DriveLens utilise son historique des prix des carburants (Bulletin pétrolier hebdomadaire de l’UE ; pour la Bosnie-Herzégovine, la moyenne de la FBiH). Vous pouvez aussi saisir vos propres prix par date dans les réglages ; entre deux dates, le prix est interpolé."
+  },
+  {
+   "q": "Combien de kilomètres est-ce que je parcours par an ?",
+   "a": "DriveLens calcule à partir du compteur votre moyenne mensuelle et annuelle, y compris les périodes que la voiture n’a pas envoyées à l’application."
+  }
+ ]
 }
