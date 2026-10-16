@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build && node scripts/build-pages.mjs",
+    "dev": "node scripts/gen-links.mjs && vite",
+    "build": "node scripts/gen-icons.mjs && node scripts/gen-links.mjs && tsc -b && vite build && vite build --ssr src/prerender.tsx --outDir dist-ssr && node scripts/build-pages.mjs",
     "lint": "tsc -b --noEmit",
     "preview": "vite preview",
     "test": "vitest run"
