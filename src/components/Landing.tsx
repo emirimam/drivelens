@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import type { Key, Lang } from '../lib/i18n'
 import faq from '../../content/faq.json'
+import links from '../../content/links.json'
 import { Icon } from './ui'
 
 interface Props {
@@ -12,16 +13,8 @@ interface Props {
   topBar: React.ReactNode
 }
 
-const GUIDES = [
-  { href: '/vodic/izvoz-voznji-myds/', title: 'Kako izvesti vožnje iz MyDS aplikacije', guide: true },
-  { href: '/vodic/izvoz-voznji-mycitroen/', title: 'Kako izvesti vožnje iz MyCitroën aplikacije', guide: true },
-  { href: '/vodic/izvoz-voznji-mypeugeot/', title: 'Kako izvesti vožnje iz MyPeugeot aplikacije', guide: true },
-  { href: '/vodic/izvoz-voznji-myopel/', title: 'Kako izvesti vožnje iz MyOpel aplikacije', guide: true },
-  { href: '/clanci/stvarna-potrosnja-phev-struja-vs-gorivo/', title: 'Stvarna potrošnja PHEV vozila: struja vs. gorivo', guide: false },
-  { href: '/clanci/peugeot-3008-hybrid-stvarna-potrosnja/', title: 'Koliko stvarno troši Peugeot 3008 Hybrid?', guide: false },
-  { href: '/clanci/da-li-se-isplati-puniti-opel-grandland-hybrid-svaki-dan/', title: 'Da li se isplati puniti Opel Grandland Hybrid svaki dan?', guide: false },
-  { href: '/clanci/e-save-punjenje-baterije-motorom/', title: 'Punjenje baterije motorom (e-Save): ima li smisla?', guide: false },
-]
+type Links = Record<string, { faq: string; pages: { href: string; title: string; guide: boolean }[] }>
+const LINKS = links as Links
 
 export function Landing({ t, lang, onFile, onDemo, error, topBar }: Props) {
   const input = useRef<HTMLInputElement>(null)
@@ -120,7 +113,7 @@ export function Landing({ t, lang, onFile, onDemo, error, topBar }: Props) {
           <h2 id="guides-h" className="font-display text-2xl font-bold mb-1">{t('guidesTitle')}</h2>
           {t('guidesNote') && <p className="text-sm mb-3" style={{ color: 'var(--t3)' }}>{t('guidesNote')}</p>}
           <div className="grid sm:grid-cols-2 gap-3 mt-3">
-            {GUIDES.map((g) => (
+            {LINKS[lang].pages.map((g) => (
               <a key={g.href} href={g.href} className="card p-4 block transition hover:brightness-110" style={{ textDecoration: 'none', color: 'var(--t1)' }}>
                 <span className="text-[11px] font-bold uppercase tracking-wider" style={{ color: g.guide ? 'var(--gold)' : 'var(--el)' }}>{g.guide ? 'CSV' : 'PHEV'}</span>
                 <span className="block font-semibold mt-0.5">{g.title}</span>
@@ -144,7 +137,7 @@ export function Landing({ t, lang, onFile, onDemo, error, topBar }: Props) {
               </details>
             ))}
           </div>
-          {lang === 'bs' && <p className="mt-3 text-sm"><a href="/pitanja/" style={{ color: 'var(--el)' }}>Sva pitanja →</a></p>}
+          <p className="mt-3 text-sm"><a href={LINKS[lang].faq} style={{ color: 'var(--el)' }}>{t('allQuestions')} →</a></p>
         </section>
 
         <p className="text-xs text-center mt-10" style={{ color: 'var(--t3)' }}>{t('disclaimer')}</p>
